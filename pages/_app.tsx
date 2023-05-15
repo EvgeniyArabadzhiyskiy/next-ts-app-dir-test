@@ -1,10 +1,14 @@
 // globalThis.AbortController = AbortController;
-const { wrapper } = require("../redux/store");
+// const { wrapper } = require("../redux/store");
 
 import type { AppProps } from 'next/app';
  
 const MyApp = ({ Component, pageProps }: AppProps) => {
-  return <Component {...pageProps} />;
+  return <>
+  <h1>_APP Layout</h1>
+  <Component {...pageProps} />
+  </>
 }
 
-export default wrapper.withRedux(MyApp);
+export default MyApp;
+// export default wrapper.withRedux(MyApp);
