@@ -4,6 +4,12 @@ import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import { setPokemonList } from "@/redux/slices/pokemonSlice";
 import Link from "next/link";
 import PokemonTable from "../PokemonTable/PokemonTable";
+import { getPokemonInfo } from "@/helpers/getPokemonInfo";
+import { useQuery } from "@tanstack/react-query";
+import { useContext } from "react";
+import { StateContext } from "@/app/GlobalStateProvider/GlobalStateProvider";
+import { parseCookies } from "nookies";
+import { usePathname } from "next/navigation";
 
 const dataPokemonNew = [
   {
@@ -75,21 +81,35 @@ const dataPokemonNew = [
 ];
 
 const AboutComp = () => {
-  const dispatch = useAppDispatch();
-  const startupPokemon = useAppSelector((state) => state.pokemons.pokemonsList);
-  console.log("About  startupPokemon:", startupPokemon);
+  // const dispatch = useAppDispatch();
+  // const startupPokemon = useAppSelector((state) => state.pokemons.pokemonsList);
+
+  // const { authToken } = parseCookies();
+  // console.log("AboutComp  authToken:", authToken);
+  const { globalData, setGlobalData } = useContext(StateContext);
+  const pathname = usePathname();
+
+  const { data } = useQuery({
+    queryKey: ["pokemon"],
+    queryFn: getPokemonInfo,
+    staleTime: Infinity,
+    refetchOnWindowFocus: false,
+  });
 
   const onClick = () => {
-    dispatch(setPokemonList(dataPokemonNew));
+    // dispatch(setPokemonList(dataPokemonNew));
+    setGlobalData('Poly')
   };
 
   return (
     <div>
       <Link href="/">HOME</Link>
-      <PokemonTable pokemons={startupPokemon} />
-      <button type="button" onClick={onClick}>
-        CLICK
-      </button>
+      <p>Current pathname: {pathname}</p>
+
+      <h1>{globalData}</h1>
+      <button type="button" onClick={onClick}>CLICK</button>
+
+      <PokemonTable pokemons={data} />
     </div>
   );
 };
