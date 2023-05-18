@@ -114,9 +114,11 @@ const dataPokemonNew = [
 ];
 
 export default async function Home() {
-  // const cookieStore = cookies();
-  // const authToken = cookieStore.get('authToken')?.value;
-  // console.log("Home  authToken:", authToken);
+  // const res = await fetch(
+  //   `http://localhost:3000/api/current-user`
+  // );
+  // const data = await res.json();
+  // console.log("Home  data:", data);
 
   
   
