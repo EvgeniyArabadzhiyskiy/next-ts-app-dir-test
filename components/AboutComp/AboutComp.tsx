@@ -10,6 +10,7 @@ import { useContext } from "react";
 import { StateContext } from "@/app/GlobalStateProvider/GlobalStateProvider";
 import { parseCookies } from "nookies";
 import { usePathname } from "next/navigation";
+import Router  from "next/router";
 
 const dataPokemonNew = [
   {
@@ -88,6 +89,8 @@ const AboutComp = () => {
   // console.log("AboutComp  authToken:", authToken);
   const { globalData, setGlobalData } = useContext(StateContext);
   const pathname = usePathname();
+  // const router = Router;
+  // console.log("PrivatRoutes  router:", router);
 
   const { data } = useQuery({
     queryKey: ["pokemon"],
