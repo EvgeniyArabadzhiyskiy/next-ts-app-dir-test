@@ -1,8 +1,9 @@
 import { store } from "@/redux/store";
+import React from "react";
 
-export default function PokemonList() {
-  const pokemons = store.getState().pokemons.pokemonsList;
-  console.log("PokemonList  pokemons:", pokemons);
+export default function PokemonList({sss, children}: {sss: any; children: React.ReactNode}) {
+  // const pokemons = store.getState().pokemons.pokemonsList;
+  // console.log("PokemonList  pokemons:", pokemons);
   
   return (
     <></>
