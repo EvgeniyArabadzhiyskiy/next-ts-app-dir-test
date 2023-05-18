@@ -2,8 +2,10 @@ import { Metadata } from "next";
 import StyledComponentsRegistry from "@/lib/registry";
 import GlobalStateProvider from "./GlobalStateProvider/GlobalStateProvider";
 import QueryProvider from "@/react-query/QueryProvider";
-import { cookies } from "next/headers";
-import PrivatRoutes from "@/components/PrivatRoutes/PrivatRoutes";
+import { cookies, headers } from "next/headers";
+import PrivatRoutes from "@/components/ProtectedRoutes/ProtectedRoutes";
+import ProtectedRoutes from "@/components/ProtectedRoutes/ProtectedRoutes";
+import PokemonList from "@/components/PokemonList/PokemonList";
 
 export const metadata: Metadata = {
   title: "Next.js",
@@ -21,6 +23,12 @@ const BASE_URL = "https://wallet-backend-xmk0.onrender.com/api";
 const USER_CURRENT = "/users/current";
 
 async function RootLayout({ children }: { children: React.ReactNode }) {
+  // const headersList = headers();
+  // const header_url = headersList.get('x-url') || "";
+  // console.log("RootLayout  header_url:", header_url);
+
+  console.log("WORLD");
+
   const cookieStore = cookies();
   const authToken = cookieStore.get("authToken")?.value;
 
@@ -34,7 +42,27 @@ async function RootLayout({ children }: { children: React.ReactNode }) {
   const resFetch = await fetch(`${BASE_URL}${USER_CURRENT}`, options);
   const user = (await resFetch.json()) as IUser;
 
-  const isLoggedIn = !user?.email;
+  const isLoggedIn = !!user?.email;
+
+  if (!isLoggedIn) {
+    return (
+      <html lang="en">
+        <head>
+          <link rel="icon" href="/vercel.svg" />
+        </head>
+        <body
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            height: "50vw",
+          }}
+        >
+          <h1>ЗАГРУЗКА...</h1>
+        </body>
+      </html>
+    );
+  }
 
   return (
     <html lang="en">
@@ -43,15 +71,21 @@ async function RootLayout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <h1>ROOT LAYOUT</h1>
-        <GlobalStateProvider user={user} isLoggedIn={isLoggedIn}>
-          <QueryProvider>
-            <StyledComponentsRegistry>
-              {/* <PrivatRoutes isLoggedIn={isLoggedIn}> */}
-                {children}
-                {/* </PrivatRoutes> */}
-            </StyledComponentsRegistry>
-          </QueryProvider>
-        </GlobalStateProvider>
+        <QueryProvider>
+          <StyledComponentsRegistry>
+            <GlobalStateProvider user={user} isLoggedIn={isLoggedIn}>
+              <ProtectedRoutes
+                pathname={"f"}
+                isLoggedIn={isLoggedIn}
+                privateRoutes={['ddd']}
+                limitedRoutes={['ggg']}
+                render={(sss: any) => <PokemonList sss={'dd'}>{children}</PokemonList> }
+              >
+                {/* {children} */}
+              </ProtectedRoutes>
+            </GlobalStateProvider>
+          </StyledComponentsRegistry>
+        </QueryProvider>
       </body>
     </html>
   );
