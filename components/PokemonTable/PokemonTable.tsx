@@ -9,7 +9,7 @@ const PokemonTable = ({ pokemons }: { pokemons: any }) => {
         </tr>
       </thead>
       <tbody>
-        {pokemons.map((pokemon: any) => (
+        {pokemons?.map((pokemon: any) => (
           <tr key={pokemon.name}>
             <td>{pokemon.name}</td>
           </tr>
