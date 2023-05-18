@@ -12,9 +12,8 @@ interface IPokemon {
 }
 
 export default async function HomePage() {
-    const res = await fetch( `https://pokeapi.co/api/v2/pokemon?offset=0&limit=10`);
-    const data = await res.json()
-    // console.log("HomePage  data:", data.results);
+    // const res = await fetch( `https://pokeapi.co/api/v2/pokemon?offset=0&limit=10`);
+    // const data = await res.json()
 
     // store.dispatch(setPokemonList(data.results))
     // console.log("HomePage  store:", store);
@@ -25,15 +24,8 @@ export default async function HomePage() {
       <Link href="/">HOME</Link>
 
       <Providers>
-        <PokemonTable pokemons={data.results} />
+        {/* <PokemonTable pokemons={data.results} /> */}
       </Providers>
-
-      {/* <ul>
-        {data &&
-          data.results.map((pokemon: IPokemon) => {
-            return <li key={pokemon.name}>{pokemon.name}</li>;
-          })}
-      </ul> */}
     </>
   );
 }
