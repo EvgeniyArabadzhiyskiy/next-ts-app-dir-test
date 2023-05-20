@@ -24,45 +24,46 @@ const USER_CURRENT = "/users/current";
 
 async function RootLayout({ children }: { children: React.ReactNode }) {
   // const headersList = headers();
-  // const header_url = headersList.get('x-url') || "";
-  // console.log("RootLayout  header_url:", header_url);
+  // const authToken = headersList.get('authorization') || "";
+  // console.log("RootLayout  authToken:", authToken);
 
-  console.log("WORLD");
+  // console.log("WORLD");
 
-  const cookieStore = cookies();
-  const authToken = cookieStore.get("authToken")?.value;
 
-  const options = {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${authToken}`,
-    },
-  };
+  // const cookieStore = cookies();
+  // const authToken = cookieStore.get("authToken")?.value;
 
-  const resFetch = await fetch(`${BASE_URL}${USER_CURRENT}`, options);
-  const user = (await resFetch.json()) as IUser;
+  // const options = {
+  //   method: "GET",
+  //   headers: {
+  //     Authorization: `Bearer ${authToken}`,
+  //   },
+  // };
 
-  const isLoggedIn = !!user?.email;
+  // const resFetch = await fetch(`${BASE_URL}${USER_CURRENT}`, options);
+  // const user = (await resFetch.json()) as IUser;
 
-  if (!isLoggedIn) {
-    return (
-      <html lang="en">
-        <head>
-          <link rel="icon" href="/vercel.svg" />
-        </head>
-        <body
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            height: "50vw",
-          }}
-        >
-          <h1>ЗАГРУЗКА...</h1>
-        </body>
-      </html>
-    );
-  }
+  // const isLoggedIn = !!user?.email;
+
+  // if (!isLoggedIn) {
+  //   return (
+  //     <html lang="en">
+  //       <head>
+  //         <link rel="icon" href="/vercel.svg" />
+  //       </head>
+  //       <body
+  //         style={{
+  //           display: "flex",
+  //           alignItems: "center",
+  //           justifyContent: "center",
+  //           height: "50vw",
+  //         }}
+  //       >
+  //         <h1>ЗАГРУЗКА...</h1>
+  //       </body>
+  //     </html>
+  //   );
+  // }
 
   return (
     <html lang="en">
@@ -73,16 +74,15 @@ async function RootLayout({ children }: { children: React.ReactNode }) {
         <h1>ROOT LAYOUT</h1>
         <QueryProvider>
           <StyledComponentsRegistry>
-            <GlobalStateProvider user={user} isLoggedIn={isLoggedIn}>
-              <ProtectedRoutes
+            <GlobalStateProvider user={{}} isLoggedIn={true}>
+              {/* <ProtectedRoutes
                 pathname={"f"}
                 isLoggedIn={isLoggedIn}
                 privateRoutes={['ddd']}
                 limitedRoutes={['ggg']}
-                render={(sss: any) => <PokemonList sss={'dd'}>{children}</PokemonList> }
-              >
-                {/* {children} */}
-              </ProtectedRoutes>
+              > */}
+                {children}
+              {/* </ProtectedRoutes> */}
             </GlobalStateProvider>
           </StyledComponentsRegistry>
         </QueryProvider>
