@@ -1,12 +1,12 @@
 import { store } from "@/redux/store";
 import React from "react";
 
-export default function PokemonList({sss, children}: {sss: any; children: React.ReactNode}) {
+export default function PokemonList({ name }: { name: string }) {
   // const pokemons = store.getState().pokemons.pokemonsList;
   // console.log("PokemonList  pokemons:", pokemons);
-  
+
   return (
-    <></>
+    <>{name}</>
     // <ul>
     //   {data &&
     //     data.results.map((pokemon: IPokemon) => {
