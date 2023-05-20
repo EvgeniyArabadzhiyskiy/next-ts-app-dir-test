@@ -10,6 +10,7 @@ import SSRPokemonTable from "@/components/SSRPokemonTable/SSRPokemonTable";
 import Preloader from "@/components/Preloader/Preloader";
 import PokemonClient from "@/components/PokemonClient/PokemonClient";
 import StatePreloader from "@/components/StatePreloader/StatePreloader";
+import { LoginButton, LogoutButton, RegisterButton } from "@/components/AuthButtons/AuthButtons";
 
 const dataPokemonNew = [
   {
@@ -141,16 +142,21 @@ export default async function Home() {
         <Link href="/hydrate">HYDRATE</Link>{' '}
       </div>
 
-      <StatePreloader results={[]} />
+      <div>
+        <LoginButton />
+        <RegisterButton />
+        <LogoutButton />
+      </div>
+
+      {/* <StatePreloader results={[]} /> */}
       
 
-      {/* <Preloader pokemons={data.results}  /> */}
 
-      <Providers>
-        {/* <PokemonClient /> */}
-        {/* <PokemonTable pokemons={data.results} /> */}
-        {/* <SSRPokemonTable /> */}
-      </Providers>
+      {/* <Providers>
+        <PokemonClient />
+        <PokemonTable pokemons={data.results} />
+        <SSRPokemonTable />
+      </Providers> */}
     </>
   );
 }
