@@ -12,10 +12,10 @@ interface IPokemon {
 }
 
 export default async function HomePage() {
-    const res = await fetch( `https://pokeapi.co/api/v2/pokemon?offset=0&limit=10`,
-     {cache: 'no-store'}
-    );
-    const data = await res.json()
+    // const res = await fetch( `https://pokeapi.co/api/v2/pokemon?offset=0&limit=10`,
+    //  {cache: 'no-store'}
+    // );
+    // const data = await res.json()
 
     // store.dispatch(setPokemonList(data.results))
     // console.log("HomePage  store:", store);
@@ -25,9 +25,9 @@ export default async function HomePage() {
       <h1>SSR PAGE</h1>
       <Link href="/">HOME</Link>
 
-      <Providers>
-        {/* <PokemonTable pokemons={data.results} /> */}
-      </Providers>
+      {/* <Providers>
+        <PokemonTable pokemons={data.results} />
+      </Providers> */}
     </>
   );
 }
