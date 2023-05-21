@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { parseCookies } from "nookies";
 import React, { createContext, useEffect, useState } from "react";
 
-const getCurrentUser = async () => {
+export const getCurrentUser = async () => {
   const BASE_URL = "https://wallet-backend-xmk0.onrender.com/api";
   const USER_CURRENT = "/users/current";
 
@@ -19,12 +19,14 @@ const getCurrentUser = async () => {
     },
   };
 
-  if (authToken) {
-    const resFetch = await fetch(`${BASE_URL}${USER_CURRENT}`, options);
-    const user = (await resFetch.json()) as IUser;
-
-    return user;
+  if (!authToken) {
+    return;
   }
+  
+  const resFetch = await fetch(`${BASE_URL}${USER_CURRENT}`, options);
+  const user = (await resFetch.json()) as IUser;
+
+  return user;
 };
 
 export const StateContext = createContext<any | undefined>(undefined);
@@ -51,22 +53,22 @@ function GlobalStateProvider({ children, isLoggedIn = false, user }: IProps) {
   const [globalData, setGlobalData] = useState<string>("Djon");
   const [userData, setUserData] = useState<IUser>(user);
 
-  const { data, isLoading } = useQuery({
-    queryKey: ["currentUser"],
-    queryFn: getCurrentUser,
-    staleTime: Infinity,
-  });
+  // const { data, isLoading } = useQuery({
+  //   queryKey: ["currentUser"],
+  //   queryFn: getCurrentUser,
+  //   staleTime: Infinity,
+  // });
 
   return (
     <StateContext.Provider
       value={{ globalData, setGlobalData, isLoggedIn, userData, setUserData }}
     >
-      {isLoading ? (
+      {false ? (
         <h1>User Loading ...</h1>
       ) : (
         <ProtectedRoutes
           pathname={pathname}
-          isLoggedIn={!!data?.email}
+          isLoggedIn={true}
           privateRoutes={privateRoutes}
           limitedRoutes={limitedRoutes}
         >
