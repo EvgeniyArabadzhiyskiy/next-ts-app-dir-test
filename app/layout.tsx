@@ -6,6 +6,9 @@ import { cookies, headers } from "next/headers";
 import PrivatRoutes from "@/components/ProtectedRoutes/ProtectedRoutes";
 import ProtectedRoutes from "@/components/ProtectedRoutes/ProtectedRoutes";
 import PokemonList from "@/components/PokemonList/PokemonList";
+import { SessionProvider } from "next-auth/react";
+import { NextAuthProvider } from "@/components/NextAuthProvider/NextAuthProvider";
+import AuthMenu from "@/components/AuthMenu/AuthMenu";
 
 export const metadata: Metadata = {
   title: "Next.js",
@@ -19,10 +22,48 @@ interface IUser {
   message?: string;
 }
 
+interface IProps {
+  children: React.ReactNode;
+  session: any;
+}
+
 const BASE_URL = "https://wallet-backend-xmk0.onrender.com/api";
 const USER_CURRENT = "/users/current";
 
-async function RootLayout({ children }: { children: React.ReactNode }) {
+
+const getCurrent = async () => {
+ 
+  const cookieStore = cookies();
+  const authToken = cookieStore.get("authToken")?.value;
+  
+
+  const options = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  };
+
+  // if (!authToken) {
+  //   return;
+  // }
+  
+  const resFetch = await fetch(`${BASE_URL}${USER_CURRENT}`, options);
+  const user = (await resFetch.json()) as IUser;
+
+  return user;
+};
+
+async function RootLayout({ children, session }: IProps) {
+
+  // const fff = new Headers()
+  // console.log("RootLayout  fff:", fff.has('authorization'));
+
+
+  // const ddd = await getCurrent()
+  // console.log("RootLayout  ddd:", ddd);
+
+
   // const headersList = headers();
   // const authToken = headersList.get('authorization') || "";
   // console.log("RootLayout  authToken:", authToken);
@@ -71,7 +112,8 @@ async function RootLayout({ children }: { children: React.ReactNode }) {
         <link rel="icon" href="/vercel.svg" />
       </head>
       <body>
-        <h1>ROOT LAYOUT</h1>
+        <NextAuthProvider>
+          <AuthMenu />
         <QueryProvider>
           <StyledComponentsRegistry>
             <GlobalStateProvider user={{}} isLoggedIn={true}>
@@ -86,6 +128,7 @@ async function RootLayout({ children }: { children: React.ReactNode }) {
             </GlobalStateProvider>
           </StyledComponentsRegistry>
         </QueryProvider>
+        </NextAuthProvider>
       </body>
     </html>
   );
