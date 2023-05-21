@@ -1,7 +1,7 @@
 import styles from "../styles/Home.module.css";
 
 import Link from "next/link";
-import { cookies } from 'next/headers';
+import { cookies } from "next/headers";
 import { store } from "@/redux/store";
 import { setPokemonList } from "@/redux/slices/pokemonSlice";
 import Providers from "@/redux/provider";
@@ -10,7 +10,10 @@ import SSRPokemonTable from "@/components/SSRPokemonTable/SSRPokemonTable";
 import Preloader from "@/components/Preloader/Preloader";
 import PokemonClient from "@/components/PokemonClient/PokemonClient";
 import StatePreloader from "@/components/StatePreloader/StatePreloader";
-import { LoginButton, LogoutButton, RegisterButton } from "@/components/AuthButtons/AuthButtons";
+
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { UserSession } from "@/components/UserSession/UserSession";
 
 const dataPokemonNew = [
   {
@@ -115,14 +118,16 @@ const dataPokemonNew = [
 ];
 
 export default async function Home() {
+  // const session = await getServerSession(authOptions);
+  // console.log("Home  session:", session);
+
+
   // const res = await fetch(
   //   `http://localhost:3000/api/current-user`
   // );
   // const data = await res.json();
   // console.log("Home  data:", data);
 
-  
-  
   // const res = await fetch(
   //   `https://pokeapi.co/api/v2/pokemon?offset=0&limit=10`
   // );
@@ -135,22 +140,20 @@ export default async function Home() {
   return (
     <>
       <div>
-        <Link href="/home">HOME</Link>{' '}
+        <Link href="/home">HOME</Link>{" "}
         {/* <Link href="/pokemons/0">Pokemons</Link>{' '} */}
         {/* <Link href="/ssr">SSR</Link>{' '} */}
-        <Link href="/about">About</Link>{' '}
-        <Link href="/hydrate">HYDRATE</Link>{' '}
+        <Link href="/about">About</Link> <Link href="/hydrate">HYDRATE</Link>{" "}
       </div>
 
-      <div>
-        <LoginButton />
-        <RegisterButton />
-        <LogoutButton />
-      </div>
-
-      {/* <StatePreloader results={[]} /> */}
       
 
+      <div>
+        {/* <pre>{JSON.stringify(session)}</pre> */}
+      </div>
+      <UserSession />
+
+      {/* <StatePreloader results={[]} /> */}
 
       {/* <Providers>
         <PokemonClient />
