@@ -2,7 +2,6 @@ import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 export const authOptions: NextAuthOptions = {
-  
   providers: [
     CredentialsProvider({
       name: "Sign in",
@@ -12,36 +11,62 @@ export const authOptions: NextAuthOptions = {
       },
 
       async authorize(credentials, req) {
-        // console.log("authorize  credentials:", credentials);
 
-        const { email, password } = credentials as any
+        const { email, password } = credentials as any;
 
         const res = await fetch(
           "https://wallet-backend-xmk0.onrender.com/api/users/login",
           {
             method: "POST",
-            body: JSON.stringify({email, password}),
+            body: JSON.stringify({ email, password }),
             headers: { "Content-Type": "application/json" },
           }
         );
         const user = await res.json();
-        
+
         if (!res.ok || !user.user.email) {
           return null;
-          
         }
 
-        return {
-          email: user.user.email,
-          name: user.user.firstName,
-          image: "https://lh3.googleusercontent.com/a/AGNmyxaH1ShEcTREU_Cw3r0hkMjLydj7y1BX30KyZ1ga=s96-c",
-          id: 'Test-ID',
-          randomKey: 'Hey Djon',
-        };
-
+        return user;
+        
       },
     }),
   ],
+
+  callbacks: {
+    jwt: ({ token, user, account }) => {
+      // console.log("user========================",user);
+      return { ...token, ...user };
+
+      // if (user) {
+      //   const u = user as unknown as any;
+      //   const result = {
+      //     ...token,
+      //     token: u.token,
+      //     user: u.user,
+      //   };
+      //   console.log("result***********фффффффффф", result);
+      //   return result
+      // }
+      //  else { return token; }
+    },
+    session: ({ session, token }) => {
+      // session.user = token
+      // return session
+
+      return {
+        ...session,
+
+        user: {
+          ...session.user,
+          token: token.token,
+          user: token.user,
+        },
+      };
+    },
+
+  },
 
   session: {
     strategy: "jwt",
@@ -50,30 +75,19 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/login",
   },
-
-  // callbacks: {
-  //   session: ({ session, token }) => {
-  //     console.log("Session Callback", { session, token });
-  //     return {
-  //       ...session,
-  //       user: {
-  //         ...session.user,
-  //         id: token.id,
-  //         randomKey: token.randomKey,
-  //       },
-  //     };
-  //   },
-  //   jwt: ({ token, user }) => {
-  //     console.log("JWT Callback", { token, user });
-  //     if (user) {
-  //       const u = user as unknown as any;
-  //       return {
-  //         ...token,
-  //         id: u.id,
-  //         randomKey: u.randomKey,
-  //       };
-  //     }
-  //     return token;
-  //   },
-  // },
 };
+
+
+//===============================================
+// const  JWT Callback = {
+//   token: {
+//     name: 'Pol',
+//     email: 'user100@mail.com',
+//     picture: 'https://lh3.googleusercontent.com/a/AGNmyxaH1ShEcTREU_Cw3r0hkMjLydj7y1BX30KyZ1ga=s96-c',
+//     sub: 'Test-ID',
+//     iat: 1684743424,
+//     exp: 1687335424,
+//     jti: '1a1ae5cd-6a04-451f-ae91-1a8768154e90'
+//   },
+//   user: undefined
+// }
