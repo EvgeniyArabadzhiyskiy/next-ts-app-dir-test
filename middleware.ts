@@ -1,15 +1,42 @@
-export { default } from 'next-auth/middleware';
+// export { default } from "next-auth/middleware";
 
-export const config = {
-  matcher: [
-    // "/hydrate",
-    // "/", 
-    "/home",
-    "/about",
-    // "/pokemons/:path*"
-  ],
-};
+// export const config = {
+//   matcher: ["/home", "/about"],
+// };
 
+// =================================================================
+
+import { NextResponse } from "next/server";
+import { withAuth } from "next-auth/middleware";
+
+export default withAuth(
+  function middleware(req) {
+    const isLoggedIn = !!req.nextauth.token;
+    console.log("========================", isLoggedIn);
+
+    // if (!isLoggedIn && req.nextUrl.pathname.startsWith("/about")) {
+    //   return NextResponse.redirect(new URL("/login", req.url));
+    // }
+
+    if (isLoggedIn && req.nextUrl.pathname.startsWith("/login")) {
+      return NextResponse.redirect(new URL("/home", req.url));
+    }
+  },
+
+  {
+    callbacks: {
+      authorized: ({ token, req }) => {
+        return !!token
+
+        return false;
+      },
+    },
+  }
+);
+
+export const config = { matcher: ["/about",
+ "/login"
+] };
 
 // ========= Авторизация на сервере и приват редирект =================
 // import { NextResponse } from "next/server";
@@ -25,7 +52,7 @@ export const config = {
 // const getPrivate = (req: any) => {
 //   for (let i = 0; i < privateRoutes.length; i += 1) {
 //     const path = privateRoutes[i];
-    
+
 //     if (req.nextUrl.pathname.startsWith(path)) {
 //       return NextResponse.redirect(new URL("/login", req.url));
 //     }
@@ -63,13 +90,12 @@ export const config = {
 // export const config = {
 //   matcher: [
 //     "/hydrate",
-//     "/", 
+//     "/",
 //     "/home",
 //     "/about",
 //     "/pokemons/:path*"
 //   ],
 // };
-
 
 // ==================Всякое чепуха========================================
 // export async function middleware(req: any) {
