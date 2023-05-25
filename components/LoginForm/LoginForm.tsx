@@ -14,8 +14,9 @@ function LoginForm() {
     const sss = await signIn("credentials", {
         email: email,
         password: password,
-        redirect: true,
-        callbackUrl: '/'
+        // redirect: false,
+        // redirect: true,
+        // callbackUrl: '/about'
     })
     
   };
