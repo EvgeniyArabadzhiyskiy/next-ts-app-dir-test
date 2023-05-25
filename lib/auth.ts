@@ -66,6 +66,16 @@ export const authOptions: NextAuthOptions = {
       };
     },
 
+    // async redirect({ url, baseUrl }) {
+    // console.log("redirect  url:", url);
+    //   console.log("redirect  url:", new URL(url).origin);
+    //   // console.log("redirect  baseUrl:", baseUrl);
+    // //   if (url.startsWith("/")) return `${baseUrl}${url}`
+    // // // Allows callback URLs on the same origin
+    // // else if (new URL(url).origin === baseUrl) return url
+    // return 'http://localhost:3000/home'
+    // },
+
   },
 
   session: {
@@ -78,16 +88,4 @@ export const authOptions: NextAuthOptions = {
 };
 
 
-//===============================================
-// const  JWT Callback = {
-//   token: {
-//     name: 'Pol',
-//     email: 'user100@mail.com',
-//     picture: 'https://lh3.googleusercontent.com/a/AGNmyxaH1ShEcTREU_Cw3r0hkMjLydj7y1BX30KyZ1ga=s96-c',
-//     sub: 'Test-ID',
-//     iat: 1684743424,
-//     exp: 1687335424,
-//     jti: '1a1ae5cd-6a04-451f-ae91-1a8768154e90'
-//   },
-//   user: undefined
-// }
+
