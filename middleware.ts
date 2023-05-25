@@ -35,7 +35,7 @@ export default withAuth(
 );
 
 export const config = { matcher: ["/about",
- "/login"
+//  "/login"
 ] };
 
 // ========= Авторизация на сервере и приват редирект =================
