@@ -9,6 +9,8 @@ import PokemonList from "@/components/PokemonList/PokemonList";
 import { SessionProvider } from "next-auth/react";
 import { NextAuthProvider } from "@/components/NextAuthProvider/NextAuthProvider";
 import AuthMenu from "@/components/AuthMenu/AuthMenu";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 export const metadata: Metadata = {
   title: "Next.js",
@@ -54,7 +56,9 @@ const getCurrent = async () => {
   return user;
 };
 
-async function RootLayout({ children, session }: IProps) {
+async function RootLayout({ children }: IProps) {
+  const session = await getServerSession(authOptions);
+  console.log("Home  session:", session);
 
   // const fff = new Headers()
   // console.log("RootLayout  fff:", fff.has('authorization'));
