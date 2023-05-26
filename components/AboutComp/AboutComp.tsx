@@ -6,11 +6,8 @@ import Link from "next/link";
 import PokemonTable from "../PokemonTable/PokemonTable";
 import { getPokemonInfo } from "@/helpers/getPokemonInfo";
 import { useQuery } from "@tanstack/react-query";
-import { useContext } from "react";
-import { StateContext } from "@/app/GlobalStateProvider/GlobalStateProvider";
 import { parseCookies } from "nookies";
 import { usePathname } from "next/navigation";
-import Router  from "next/router";
 
 const dataPokemonNew = [
   {
@@ -85,23 +82,28 @@ const AboutComp = () => {
   // const dispatch = useAppDispatch();
   // const startupPokemon = useAppSelector((state) => state.pokemons.pokemonsList);
 
-  // const { authToken } = parseCookies();
+  const { authToken } = parseCookies();
   // console.log("AboutComp  authToken:", authToken);
-  const { globalData, setGlobalData } = useContext(StateContext);
   const pathname = usePathname();
-  // const router = Router;
-  // console.log("PrivatRoutes  router:", router);
+  
 
-  const { data } = useQuery({
+  const { data, isLoading, isFetched } = useQuery({
     queryKey: ["pokemon"],
     queryFn: getPokemonInfo,
     staleTime: Infinity,
-    refetchOnWindowFocus: false,
+    enabled: !!authToken,
+
   });
+
+  if (isFetched) {
+    
+    // console.log("AboutComp  data:", data);
+    // console.log("AboutComp  isFetched:", isFetched);
+  }
+  // console.log("AboutComp  isLoading:", isLoading);
 
   const onClick = () => {
     // dispatch(setPokemonList(dataPokemonNew));
-    setGlobalData('Poly')
   };
 
   return (
@@ -109,7 +111,7 @@ const AboutComp = () => {
       <Link href="/">HOME</Link>
       <p>Current pathname: {pathname}</p>
 
-      <h1>{globalData}</h1>
+      
       <button type="button" onClick={onClick}>CLICK</button>
 
       <PokemonTable pokemons={data} />
