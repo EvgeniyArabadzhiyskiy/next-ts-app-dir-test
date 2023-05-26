@@ -18,9 +18,9 @@ export default withAuth(
     //   return NextResponse.redirect(new URL("/login", req.url));
     // }
 
-    if (isLoggedIn && req.nextUrl.pathname.startsWith("/login")) {
-      return NextResponse.redirect(new URL("/home", req.url));
-    }
+    // if (isLoggedIn && req.nextUrl.pathname.startsWith("/login")) {
+    //   return NextResponse.redirect(new URL("/home", req.url));
+    // }
   },
 
   {
@@ -34,15 +34,13 @@ export default withAuth(
   }
 );
 
-export const config = { matcher: ["/about",
+export const config = { matcher: [
+  // "/about",
 //  "/login"
 ] };
 
 // ========= Авторизация на сервере и приват редирект =================
 // import { NextResponse } from "next/server";
-// import getQueryClient from "./react-query/getQueryClient";
-// import { getPokemonInfo } from "./helpers/getPokemonInfo";
-// import { dehydrate } from "@tanstack/react-query";
 
 // const BASE_URL = "https://wallet-backend-xmk0.onrender.com/api";
 // const USER_CURRENT = "/users/current";
