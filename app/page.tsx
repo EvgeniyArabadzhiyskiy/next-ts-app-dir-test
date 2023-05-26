@@ -9,7 +9,6 @@ import PokemonTable from "@/components/PokemonTable/PokemonTable";
 import SSRPokemonTable from "@/components/SSRPokemonTable/SSRPokemonTable";
 import Preloader from "@/components/Preloader/Preloader";
 import PokemonClient from "@/components/PokemonClient/PokemonClient";
-import StatePreloader from "@/components/StatePreloader/StatePreloader";
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
@@ -153,7 +152,6 @@ export default async function Home() {
       </div>
       <UserSession />
 
-      {/* <StatePreloader results={[]} /> */}
 
       {/* <Providers>
         <PokemonClient />
