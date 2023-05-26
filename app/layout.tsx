@@ -57,8 +57,8 @@ const getCurrent = async () => {
 };
 
 async function RootLayout({ children }: IProps) {
-  const session = await getServerSession(authOptions);
-  console.log("Home  session:", session);
+  // const session = await getServerSession(authOptions);
+  // console.log("Home  session:", session);
 
   // const fff = new Headers()
   // console.log("RootLayout  fff:", fff.has('authorization'));
