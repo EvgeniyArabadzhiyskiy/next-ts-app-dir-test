@@ -11,7 +11,6 @@ export const authOptions: NextAuthOptions = {
       },
 
       async authorize(credentials, req) {
-
         const { email, password } = credentials as any;
 
         const res = await fetch(
@@ -29,13 +28,14 @@ export const authOptions: NextAuthOptions = {
         }
 
         return user;
-        
       },
     }),
   ],
 
   callbacks: {
-    jwt: ({ token, user, account }) => {
+    async jwt({ token, user, account }) {
+      // console.log("user:", user);
+      // console.log("token:", token);
       // console.log("user========================",user);
       return { ...token, ...user };
 
@@ -51,19 +51,22 @@ export const authOptions: NextAuthOptions = {
       // }
       //  else { return token; }
     },
-    session: ({ session, token }) => {
-      // session.user = token
-      // return session
+    async session({ session, token }) {
 
-      return {
-        ...session,
+      const { iat, exp, jti, ...rest } = token as any;
 
-        user: {
-          ...session.user,
-          token: token.token,
-          user: token.user,
-        },
-      };
+      session.user = rest;
+      return session;
+
+      // return {
+      //   ...session,
+
+      //   user: {
+      //     ...session.user,
+      //     token: token.token,
+      //     user: token.user,
+      //   },
+      // };
     },
 
     // async redirect({ url, baseUrl }) {
@@ -75,7 +78,6 @@ export const authOptions: NextAuthOptions = {
     // // else if (new URL(url).origin === baseUrl) return url
     // return 'http://localhost:3000/home'
     // },
-
   },
 
   session: {
@@ -86,6 +88,3 @@ export const authOptions: NextAuthOptions = {
     signIn: "/login",
   },
 };
-
-
-
