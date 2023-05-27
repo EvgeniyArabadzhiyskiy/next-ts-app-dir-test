@@ -1,17 +1,26 @@
-// "use client"
+"use client";
 
-import LoginForm from "@/components/LoginForm/LoginForm";
 import Link from "next/link";
-// import { useSession } from "next-auth/react";
-// import { redirect, usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import LoginForm from "@/components/LoginForm/LoginForm";
 
-export default function LoginPage() {
-  // const pathname = usePathname();
-  // const session = useSession();
+export default  function LoginPage() {
+  // const session = await getServerSession(authOptions);
+  // if (session) redirect("/home");
 
-  // if (pathname === "/login" && session) {
-  //   redirect("/home");
-  // }
+  const session = useSession();
+  console.log("LoginForm  session:", session.status);
+
+  if (session.status === "loading") {
+    return <h1>Session loading ...</h1>;
+  }
+
+  if (session.status === "authenticated") {
+    redirect("/home");
+  }
 
   return (
     <>
