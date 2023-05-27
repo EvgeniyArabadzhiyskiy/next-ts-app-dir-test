@@ -7,6 +7,7 @@ import { redirect, usePathname, useRouter } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { setCookie } from "nookies";
+import React from "react";
 
 const login = async (credentials: any) => {
   const BASE_URL = "https://wallet-backend-xmk0.onrender.com/api";
