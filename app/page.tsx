@@ -140,9 +140,13 @@ export default async function Home() {
     <>
       <div>
         <Link href="/home">HOME</Link>{" "}
+        <Link href="/about">About</Link>{" "} 
+        <Link href="/hydrate">HYDRATE</Link>{" "}
+        <pre><Link href="/login">LOGIN</Link></pre>
+
+        
         {/* <Link href="/pokemons/0">Pokemons</Link>{' '} */}
         {/* <Link href="/ssr">SSR</Link>{' '} */}
-        <Link href="/about">About</Link> <Link href="/hydrate">HYDRATE</Link>{" "}
       </div>
 
       
