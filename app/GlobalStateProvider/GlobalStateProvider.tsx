@@ -44,44 +44,49 @@ const privateRoutes = ["/about", "/hydrate", "/pokemons"];
 const limitedRoutes = ["/home", "/register"];
 
 function GlobalStateProvider({ children, isLoggedIn = false, user }: IProps) {
-  const pathname = usePathname();
-  const { authToken } = parseCookies();
+  // const pathname = usePathname();
+  // const { authToken } = parseCookies();
   // console.log("GlobalStateProvider  authToken:", !!authToken);
 
-  const [userData, setUserData] = useState<IUser>(user);
+  
+  // const [userData, setUserData] = useState<IUser>(user);
 
-  const { data, isFetched, isLoading, isFetching, isFetchedAfterMount } =
-    useQuery({
-      queryKey: ["currentUser"],
-      queryFn: getCurrentUser,
-      staleTime: Infinity,
-      enabled: !!authToken,
-    });
+
+
+  // const { data, isFetched, isLoading, isFetching, isFetchedAfterMount } =
+  // useQuery({
+  //   queryKey: ["currentUser"],
+  //   queryFn: getCurrentUser,
+  //   staleTime: Infinity,
+  //   // enabled: !!authToken,
+  // });
+
+
   // console.log("GlobalStateProvider  data:", !data);
   // console.log("isFetchedAfterMount  :", isFetching);
   // console.log("GlobalStateProvider  isFetching:", isFetching);
   // console.log("GlobalStateProvider  isLoading:", isLoading );
   // console.log("GlobalStateProvider  data:", !!data?.email);
 
-  const fff = !!data?.email;
+  // const fff = !!data?.email;
 
   return (
     <>
       {/* <StateContext.Provider value={{ isLoggedIn, userData, setUserData }}> */}
-      {false ? (
+      {(false) ? (
         <>
           <h1>User Loading ...</h1>
-          <h1>{JSON.stringify(fff)}</h1>
+          {/* <h1>{JSON.stringify(fff)}</h1> */}
         </>
       ) : (
         <>
           <ProtectedRoutes
-            pathname={pathname}
-            isLoggedIn={fff}
+            pathname={'/'}
+            isLoggedIn={true}
             privateRoutes={privateRoutes}
             limitedRoutes={limitedRoutes}
           >
-            <h1>{JSON.stringify(!!data?.email)}</h1>
+            {/* <h1>{JSON.stringify(!!data?.email)}</h1> */}
             {children}
           </ProtectedRoutes>
         </>
