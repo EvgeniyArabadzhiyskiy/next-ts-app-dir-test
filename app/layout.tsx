@@ -60,19 +60,14 @@ async function RootLayout({ children }: IProps) {
   // const session = await getServerSession(authOptions);
   // console.log("Home  session:", session);
 
-  // const fff = new Headers()
-  // console.log("RootLayout  fff:", fff.has('authorization'));
+
 
 
   // const ddd = await getCurrent()
   // console.log("RootLayout  ddd:", ddd);
 
 
-  // const headersList = headers();
-  // const authToken = headersList.get('authorization') || "";
-  // console.log("RootLayout  authToken:", authToken);
 
-  // console.log("WORLD");
 
 
   // const cookieStore = cookies();
