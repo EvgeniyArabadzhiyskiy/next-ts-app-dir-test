@@ -3,7 +3,7 @@
 import { signIn } from "next-auth/react";
 import { ChangeEvent, useState } from "react";
 import { useSession } from "next-auth/react";
-import { redirect, usePathname } from "next/navigation";
+import { redirect, usePathname, useRouter } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { setCookie } from "nookies";
@@ -22,45 +22,47 @@ const login = async (credentials: any) => {
   // const user = await resFetch.json();
   // console.log("login  user:", user);
 
-  const { data: user } = await axios.post(`${BASE_URL}${USER_LOGIN}`, credentials);
+  const { data: user } = await axios.post(
+    `${BASE_URL}${USER_LOGIN}`,
+    credentials
+  );
 
   return user;
 };
 
 function LoginForm() {
-  // const pathname = usePathname();
-  const session = useSession();
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const mutation = useMutation({
-    mutationFn: login,
-    onSuccess: (data) => {
-      const { token, ...rest } = data;
-      queryClient.setQueryData(["currentUser"], rest);
-      
-      setCookie(null, "authToken", `${token}`, {
-          maxAge: 30 * 24 * 60 * 60,
-          path: "/",
-        });
-        // const ddd = queryClient.getQueryData(['currentUser'])
-        // console.log("LoginForm  ddd:", ddd);
-    },
-  });
+  // const mutation = useMutation({
+  //   mutationFn: login,
+  //   onSuccess: (data) => {
+  //     const { token, ...rest } = data;
+  //     queryClient.setQueryData(["currentUser"], rest);
+
+  //     setCookie(null, "authToken", `${token}`, {
+  //         maxAge: 30 * 24 * 60 * 60,
+  //         path: "/",
+  //       });
+  //       // const ddd = queryClient.getQueryData(['currentUser'])
+  //       // console.log("LoginForm  ddd:", ddd);
+  //   },
+  // });
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // const sss = await signIn("credentials", {
-    //   email: email,
-    //   password: password,
-    //   // redirect: false,
-    //   // redirect: true,
-    //   // callbackUrl: '/about'
-    // });
+    const sss = await signIn("credentials", {
+      email: email,
+      password: password,
+      // redirect: false,
+      redirect: true,
+      callbackUrl: "/home",
+    });
 
-    mutation.mutate({ email, password });
+    // mutation.mutate({ email, password });
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -78,14 +80,6 @@ function LoginForm() {
         return;
     }
   };
-
-  // if (session.status === "loading") {
-  //   return <h1>Session loading ...</h1>;
-  // }
-
-  // if (session.status === "authenticated") {
-  //   // redirect("/home");
-  // }
 
   return (
     <>
