@@ -69,15 +69,7 @@ export const authOptions: NextAuthOptions = {
       // };
     },
 
-    // async redirect({ url, baseUrl }) {
-    // console.log("redirect  url:", url);
-    //   console.log("redirect  url:", new URL(url).origin);
-    //   // console.log("redirect  baseUrl:", baseUrl);
-    // //   if (url.startsWith("/")) return `${baseUrl}${url}`
-    // // // Allows callback URLs on the same origin
-    // // else if (new URL(url).origin === baseUrl) return url
-    // return 'http://localhost:3000/home'
-    // },
+  
   },
 
   session: {
