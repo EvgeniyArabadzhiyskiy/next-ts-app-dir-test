@@ -32,12 +32,9 @@ interface IProps {
 const BASE_URL = "https://wallet-backend-xmk0.onrender.com/api";
 const USER_CURRENT = "/users/current";
 
-
- const getCurrent = async () => {
- 
+const getCurrent = async () => {
   const cookieStore = cookies();
   const authToken = cookieStore.get("authToken")?.value;
-  
 
   const options = {
     method: "GET",
@@ -49,38 +46,31 @@ const USER_CURRENT = "/users/current";
   // if (!authToken) {
   //   return;
   // }
-  
+
   const resFetch = await fetch(`${BASE_URL}${USER_CURRENT}`, options);
-  
+
   // console.log("getCurrent  resFetch:", resFetch.ok);
 
-  if (!resFetch.ok) { 
+  if (!resFetch.ok) {
     console.log("ERRROR");
-    
+
     // throw new Error("NEW User  Unauthorized");
-  } 
+  }
 
   const user = (await resFetch.json()) as IUser;
 
   return user;
 };
-export {getCurrent}
+export { getCurrent };
 
-
-
-async function RootLayout({ children }: {children: React.ReactNode}) {
+async function RootLayout({ children }: { children: React.ReactNode }) {
   // const session = await getServerSession(authOptions);
   // console.log("Home  session:", session);
 
   // getCurrent()
 
-
   // const ddd = await getCurrent()
   // console.log("RootLayout  ddd:", ddd);
-
-
-
-
 
   // const cookieStore = cookies();
   // const authToken = cookieStore.get("authToken")?.value;
@@ -122,9 +112,7 @@ async function RootLayout({ children }: {children: React.ReactNode}) {
       <head>
         <link rel="icon" href="/vercel.svg" />
       </head>
-      <body style={{background: '#cdc3c1'}}>
-        {/* <NextAuthProvider> */}
-          {/* <AuthMenu /> */}
+      <body style={{ background: "#cdc3c1" }}>
         <QueryProvider>
           <StyledComponentsRegistry>
             <GlobalStateProvider user={{}} isLoggedIn={true}>
@@ -134,12 +122,14 @@ async function RootLayout({ children }: {children: React.ReactNode}) {
                 privateRoutes={['ddd']}
                 limitedRoutes={['ggg']}
               > */}
+              <NextAuthProvider>
+                <AuthMenu />
                 {children}
+              </NextAuthProvider>
               {/* </ProtectedRoutes> */}
             </GlobalStateProvider>
           </StyledComponentsRegistry>
         </QueryProvider>
-        {/* </NextAuthProvider> */}
       </body>
     </html>
   );
