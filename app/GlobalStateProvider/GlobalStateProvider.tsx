@@ -68,7 +68,7 @@ export const getCurrentUser = async () => {
 
 function GlobalStateProvider({ children, isLoggedIn = false, user }: IProps) {
   // const pathname = usePathname();
-  const { authToken } = parseCookies();
+  // const { authToken } = parseCookies();
 
   // getCurrentUser().then(data => {
   //   console.log("DATA_USER", data);
