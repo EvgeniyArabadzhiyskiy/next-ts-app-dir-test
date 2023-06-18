@@ -83,37 +83,28 @@ const AboutComp = () => {
   // const startupPokemon = useAppSelector((state) => state.pokemons.pokemonsList);
 
   const { authToken } = parseCookies();
-  // console.log("AboutComp  authToken:", authToken);
-  const pathname = usePathname();
   
-
-  const { data, isLoading, isFetched } = useQuery({
+  const { data, isFetching } = useQuery({
     queryKey: ["pokemon"],
     queryFn: getPokemonInfo,
     staleTime: Infinity,
-    enabled: !!authToken,
+    // enabled: !!authToken,
 
   });
 
-  if (isFetched) {
-    
-    // console.log("AboutComp  data:", data);
-    // console.log("AboutComp  isFetched:", isFetched);
+  if (isFetching) {
+    return <h1>Client Loading...</h1>
   }
-  // console.log("AboutComp  isLoading:", isLoading);
 
-  const onClick = () => {
-    // dispatch(setPokemonList(dataPokemonNew));
-  };
+ 
 
   return (
     <div>
       <Link href="/">HOME</Link>
-      <p>Current pathname: {pathname}</p>
+      <p>Current pathname</p>
 
       
-      <button type="button" onClick={onClick}>CLICK</button>
-
+    
       <PokemonTable pokemons={data} />
     </div>
   );
