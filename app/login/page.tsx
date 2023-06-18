@@ -15,7 +15,7 @@ import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   // const { authToken } = parseCookies();
-  const router = useRouter();
+  // const router = useRouter();
 
   // const session = await getServerSession(authOptions);
   // if (session) redirect("/home");
@@ -31,7 +31,7 @@ export default function LoginPage() {
   //   redirect("/home");
   // }
 
-  const isLoggedIn = useUser("/home", true);
+  // const isLoggedIn = useUser("/home", true);
   // console.log("LoginPage  isLoggedIn:", isLoggedIn);
 
   // console.log("LoginPage  isFetching:", isFetching);
@@ -47,13 +47,13 @@ export default function LoginPage() {
 
   // const isLoggedIn = !!data?.email;
 
-  useEffect(() => {
-    console.log("LoginPage  isLoggedIn:", isLoggedIn);
-    if (!isLoggedIn) {
-      return
-    }
-    router.push("/home");
-  }, [isLoggedIn, router]);
+  // useEffect(() => {
+  //   console.log("LoginPage  isLoggedIn:", isLoggedIn);
+  //   if (!isLoggedIn) {
+  //     return
+  //   }
+  //   router.push("/home");
+  // }, [isLoggedIn, router]);
 
   // console.log("re-render");
 
