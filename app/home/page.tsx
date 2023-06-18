@@ -69,10 +69,10 @@ interface UserData {
 }
 
 export default async function HomePage({ params }: any) {
-  const cookieStore = cookies();
-  const authToken = cookieStore.get("authToken")?.value;
+  // const cookieStore = cookies();
+  // const authToken = cookieStore.get("authToken")?.value;
   
-  const queryUserData = await  getUser(authToken)
+  // const queryUserData = await  getUser(authToken)
   // console.log("HomePage  queryUserData:>>>>>>>>>>>>>>>>>>>>>>>>>>>", queryUserData);
 
 
@@ -89,7 +89,7 @@ export default async function HomePage({ params }: any) {
   // const queryUserData = queryClient.getQueryData<Partial<UserData>>(["User"]);
   // console.log("HomePage  queryUserData:<<<<<<<<<<<<<<>>>>>>>>>>>>>>", queryUserData);
 
-  const isLoggedIn = !!queryUserData?.email;
+  // const isLoggedIn = !!queryUserData?.email;
 
 
   // if (isLoggedIn) {
@@ -99,9 +99,9 @@ export default async function HomePage({ params }: any) {
   return (
     // <Hydrate state={dehydratedState}>
     <>
-    <Header
+    {/* <Header
       currentUser={queryUserData}
-    />
+    /> */}
       <div className={stl.container}>
         <h1>HOME PAGE</h1>
         <Link href="/">HOME</Link>
