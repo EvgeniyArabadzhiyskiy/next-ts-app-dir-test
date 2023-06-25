@@ -1,4 +1,4 @@
-'use client'
+// 'use client'
 
 import AboutComp from "@/components/AboutComp/AboutComp";
 import Providers from "@/redux/provider";
@@ -15,67 +15,68 @@ import { getUser } from "@/helpers/getUser";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { useUser } from "@/hooks/useUser";
+import TransactionList from "@/components/TransactionList/TransactionList";
+import UserBox from "@/components/UserBox";
+import { getAllTransactions } from "@/helpers/getAllTransactions";
+import { getPokemonInfo } from "@/helpers/getPokemonInfo";
+import { Suspense } from "react";
+import { getTodo } from "@/helpers/getTodo";
 
 interface UserData {
   email: string;
   firstName: string;
   balance: number;
-
 }
 
-export default  function AboutPage() {
-  // await new Promise(res => setTimeout(() => res(777), 2000))   // About Page Loading
 
-  // const cookieStore = cookies();
-  // const authToken = cookieStore.get("authToken")?.value;
+const getPokemonInfo2 = async (): Promise<any> => {
+  await new Promise(res => setTimeout(() => res(777), 5000))
+
+  const req = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=10&limit=10`,
+  // {cache: 'no-store'}
+  );
+  const data = (await req.json()) as any;
+
+  return data.results;
+};
+
+export default async function AboutPage() {
+  const cookieStore = cookies();
+  const authToken = cookieStore.get("authToken")?.value;
+
+
+  // const todoData = await getTodo(1);
+  // console.log("AboutPage  todoData>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>:", todoData);
+
+  // const transData = await getPokemonInfo2();
+  // console.log("AboutPage  transData:++++++++++++++++++++++++++++++", transData);
+
+  // const userCurrent = await getUser(authToken);
+
+  // === Авторизация Через React-query ===
+  const queryClient = getQueryClient();
+  await queryClient.prefetchQuery(["User"], () => getUser(authToken));
+  const dehydratedState = dehydrate(queryClient);
+  const currenUser = queryClient.getQueryData<Partial<UserData>>(["User"]);
   
-  // const queryUserData = await  getUser(authToken)
-
-  // const headersList = headers();
-  // const authToken = headersList.get('authorization') || "";
-  // console.log("RootLayout  authToken:", authToken);
-
-  // const cookieStore = cookies();
-  // const authToken = cookieStore.get("authToken")?.value;
-  // console.log("AboutPage  authToken:", authToken);
-
-  // const queryClient = getQueryClient();
-  // await queryClient.prefetchQuery(["User"], getUser);
-  // const dehydratedState = dehydrate(queryClient);
-
-  // const queryUserData = queryClient.getQueryData<Partial<UserData>>(["User"]);
-  // console.log("AboutPage  queryUserData:*******************************", queryUserData);
-
-  // const isLoggedIn = !!queryUserData?.email;
-
-  // if (isLoggedIn) {
-  //   redirect("/login");
-  // }
-
-  // const { data, isLoggedIn, isFetching } = useUser("/home", false);
-
-  // if (isFetching) {
-  //   return <h1>Loading...</h1>;
-  // }
-
-
   return (
-    // <Hydrate state={dehydratedState}>
-    <>
-      <Header 
-        // currentUser={queryUserData}
-      />
-        
-      <main>
-        <Link href="/">Home</Link>
-        <h1>About Page</h1>
-        {/* <Providers> */}
-        {/* <AboutComp /> */}
-        {/* </Providers> */}
-        {/* {JSON.stringify(user)} */}
-        {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
-      </main>
-    </>
-    // </Hydrate>
+    <Hydrate state={dehydratedState}>
+      <>
+        <main>
+          <Link href="/">Home</Link>
+          <Header currentUser={currenUser} />
+          <h1>About Page</h1>
+          {/* <Providers> */}
+          {/* <UserBox /> */}
+          {/* <TransactionList /> */}
+          {/* <Suspense fallback={<h1>Pokemon Loading...</h1>} > */}
+          <AboutComp />
+          {/* </Suspense> */}
+          {/* </Providers> */}
+          {/* {JSON.stringify(user)} */}
+          {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
+        </main>
+      </>
+     </Hydrate>
   );
 }
