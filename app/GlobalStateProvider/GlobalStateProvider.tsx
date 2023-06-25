@@ -1,8 +1,10 @@
-"use client";
+// "use client";
 
 import ProtectedRoutes from "@/components/ProtectedRoutes/ProtectedRoutes";
+import { getUser } from "@/helpers/getUser";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { cookies } from "next/headers";
 import Link from "next/link";
 import { redirect, usePathname } from "next/navigation";
 import { parseCookies } from "nookies";
@@ -17,8 +19,6 @@ interface IUser {
 
 interface IProps {
   children: React.ReactNode;
-  isLoggedIn: boolean;
-  user: IUser;
 }
 
 const privateRoutes = ["/about", "/hydrate", "/pokemons"];
@@ -66,7 +66,7 @@ export const getCurrentUser = async () => {
 
 // export const StateContext = createContext<any | undefined>(undefined);
 
-function GlobalStateProvider({ children, isLoggedIn = false, user }: IProps) {
+export default function GlobalStateProvider({ children }: IProps) {
   // const pathname = usePathname();
   // const { authToken } = parseCookies();
 
@@ -136,5 +136,3 @@ function GlobalStateProvider({ children, isLoggedIn = false, user }: IProps) {
     </>
   );
 }
-
-export default GlobalStateProvider;
