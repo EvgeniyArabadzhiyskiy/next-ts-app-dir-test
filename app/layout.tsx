@@ -11,6 +11,7 @@ import { NextAuthProvider } from "@/components/NextAuthProvider/NextAuthProvider
 import AuthMenu from "@/components/AuthMenu/AuthMenu";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import AuthServerProvider from "@/components/AuthServerProvider/AuthServerProvider";
 
 export const metadata: Metadata = {
   title: "Next.js",
@@ -67,8 +68,6 @@ async function RootLayout({ children }: { children: React.ReactNode }) {
   // const session = await getServerSession(authOptions);
   // console.log("Home  session:", session);
 
-  // getCurrent()
-
   // const ddd = await getCurrent()
   // console.log("RootLayout  ddd:", ddd);
 
@@ -87,26 +86,6 @@ async function RootLayout({ children }: { children: React.ReactNode }) {
 
   // const isLoggedIn = !!user?.email;
 
-  // if (!isLoggedIn) {
-  //   return (
-  //     <html lang="en">
-  //       <head>
-  //         <link rel="icon" href="/vercel.svg" />
-  //       </head>
-  //       <body
-  //         style={{
-  //           display: "flex",
-  //           alignItems: "center",
-  //           justifyContent: "center",
-  //           height: "50vw",
-  //         }}
-  //       >
-  //         <h1>ЗАГРУЗКА...</h1>
-  //       </body>
-  //     </html>
-  //   );
-  // }
-
   return (
     <html lang="en">
       <head>
@@ -114,21 +93,17 @@ async function RootLayout({ children }: { children: React.ReactNode }) {
       </head>
       <body style={{ background: "#cdc3c1" }}>
         <QueryProvider>
-          <StyledComponentsRegistry>
-            <GlobalStateProvider user={{}} isLoggedIn={true}>
-              {/* <ProtectedRoutes
-                pathname={"f"}
-                isLoggedIn={isLoggedIn}
-                privateRoutes={['ddd']}
-                limitedRoutes={['ggg']}
-              > */}
-              <NextAuthProvider>
-                <AuthMenu />
+          <GlobalStateProvider>
+            {/* <AuthServerProvider> */}
+              <StyledComponentsRegistry>
+                {/* <NextAuthProvider> */}
+                {/* <AuthMenu /> */}
                 {children}
-              </NextAuthProvider>
-              {/* </ProtectedRoutes> */}
-            </GlobalStateProvider>
-          </StyledComponentsRegistry>
+                {/* </NextAuthProvider> */}
+                {/* </ProtectedRoutes> */}
+              </StyledComponentsRegistry>
+            {/* </AuthServerProvider> */}
+          </GlobalStateProvider>
         </QueryProvider>
       </body>
     </html>
