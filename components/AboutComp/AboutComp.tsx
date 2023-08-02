@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import { setPokemonList } from "@/redux/slices/pokemonSlice";
@@ -78,23 +78,23 @@ const dataPokemonNew = [
   },
 ];
 
-const AboutComp = () => {
+const AboutComp = async () => {
   // const dispatch = useAppDispatch();
   // const startupPokemon = useAppSelector((state) => state.pokemons.pokemonsList);
 
-  const { authToken } = parseCookies();
+  const data = await getPokemonInfo();
+  console.log("AboutComp  data>>>>>>>>>>>>>>>>>>>>>>>>>>>>:", data);
   
-  const { data, isFetching } = useQuery({
-    queryKey: ["pokemon"],
-    queryFn: getPokemonInfo,
-    staleTime: Infinity,
-    // enabled: !!authToken,
+  // const { data, isFetching } = useQuery({
+  //   queryKey: ["pokemon"],
+  //   queryFn: getPokemonInfo,
+  //   staleTime: Infinity,
 
-  });
+  // });
 
-  if (isFetching) {
-    return <h1>Client Loading...</h1>
-  }
+  // if (isFetching) {
+  //   return <h1>Client Loading...</h1>
+  // }
 
  
 

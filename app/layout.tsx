@@ -12,6 +12,7 @@ import AuthMenu from "@/components/AuthMenu/AuthMenu";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import AuthServerProvider from "@/components/AuthServerProvider/AuthServerProvider";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Next.js",
@@ -92,6 +93,22 @@ async function RootLayout({ children }: { children: React.ReactNode }) {
         <link rel="icon" href="/vercel.svg" />
       </head>
       <body style={{ background: "#cdc3c1" }}>
+      <div>
+        <Link href="/home">HOME</Link>{" "}
+        <br />
+        <div style={{marginTop: 20}}></div>
+        <Link  href="/about">About</Link>{" "} 
+        <br />
+        <div style={{marginTop: 20}}></div>
+        <Link href="/hydrate">HYDRATE</Link>{" "}
+        <br />
+        <div style={{marginTop: 20}}></div>
+        <pre><Link  href="/login">LOGIN</Link></pre>
+
+        
+        {/* <Link href="/pokemons/0">Pokemons</Link>{' '} */}
+        {/* <Link href="/ssr">SSR</Link>{' '} */}
+      </div>
         <QueryProvider>
           <GlobalStateProvider>
             {/* <AuthServerProvider> */}

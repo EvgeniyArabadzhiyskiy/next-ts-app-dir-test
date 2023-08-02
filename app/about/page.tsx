@@ -55,28 +55,29 @@ export default async function AboutPage() {
 
   // === Авторизация Через React-query ===
   const queryClient = getQueryClient();
-  await queryClient.prefetchQuery(["User"], () => getUser(authToken));
-  const dehydratedState = dehydrate(queryClient);
-  const currenUser = queryClient.getQueryData<Partial<UserData>>(["User"]);
+  // await queryClient.prefetchQuery(["User"], () => getUser(authToken));
+  // const dehydratedState = dehydrate(queryClient);
+  // const currenUser = queryClient.getQueryData<Partial<UserData>>(["User"]);
   
   return (
-    <Hydrate state={dehydratedState}>
+    // <Hydrate state={dehydratedState}>
       <>
         <main>
           <Link href="/">Home</Link>
-          <Header currentUser={currenUser} />
+          {/* <Header currentUser={currenUser} /> */}
           <h1>About Page</h1>
+          <div style={{ height: 250, backgroundColor: "blue" }}></div>
           {/* <Providers> */}
           {/* <UserBox /> */}
           {/* <TransactionList /> */}
           {/* <Suspense fallback={<h1>Pokemon Loading...</h1>} > */}
-          <AboutComp />
+          {/* <AboutComp /> */}
           {/* </Suspense> */}
           {/* </Providers> */}
           {/* {JSON.stringify(user)} */}
           {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
         </main>
       </>
-     </Hydrate>
+    //  </Hydrate>
   );
 }

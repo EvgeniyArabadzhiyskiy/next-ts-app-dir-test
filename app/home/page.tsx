@@ -37,11 +37,11 @@ export default async function HomePage() {
   // === Авторизация Через функцию getUser напрямую ===
   const currenUser = await getUser(authToken);
 
-  const queryClient = getQueryClient();
-  await queryClient.prefetchQuery(["Transactions", 1], () =>
-    getAllTransactions(authToken, 1)
-  );
-  const dehydratedState = dehydrate(queryClient);
+  // const queryClient = getQueryClient();
+  // await queryClient.prefetchQuery(["Transactions", 1], () =>
+  //   getAllTransactions(authToken, 1)
+  // );
+  // const dehydratedState = dehydrate(queryClient);
 
   // const transData = await getPokemonInfo();
   // console.log("HomePage  transData:>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", transData[0]);
@@ -50,18 +50,22 @@ export default async function HomePage() {
   // console.log("HomePage  todoData:=============================", todoData);
 
   return (
-    <Hydrate state={dehydratedState}>
-      <>
-        {/* <Header currentUser={currenUser} /> */}
-        <div className={stl.container}>
-          <h1>HOME PAGE</h1>
-          <Link href="/">HOME</Link>
-        </div>
+    <>
+      {/* <Hydrate state={dehydratedState}> */}
+        <>
+          {/* <Header currentUser={currenUser} /> */}
+          <div className={stl.container}>
+            <h1>HOME PAGE</h1>
+            <Link href="/">HOME</Link>
+          </div>
 
-        <TransactionList authToken={authToken} />
-        {/* <TransactionList authToken={transData.transactions} /> */}
-      </>
-       </Hydrate>
+          {/* <div style={{ height: 250, backgroundColor: "blue" }}></div> */}
+
+          <TransactionList authToken={authToken} />
+          {/* <TransactionList authToken={transData.transactions} /> */}
+        </>
+      {/* </Hydrate> */}
+    </>
   );
 }
 

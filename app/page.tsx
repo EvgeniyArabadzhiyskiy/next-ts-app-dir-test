@@ -138,16 +138,18 @@ export default async function Home() {
 
   return (
     <>
-      <div>
+      {/* <div>
         <Link href="/home">HOME</Link>{" "}
-        <Link href="/about">About</Link>{" "} 
+        <br />
+        <div style={{marginTop: 20}}></div>
+        <Link  href="/about">About</Link>{" "} 
+        <br />
+        <div style={{marginTop: 20}}></div>
         <Link href="/hydrate">HYDRATE</Link>{" "}
-        <pre><Link href="/login">LOGIN</Link></pre>
-
-        
-        {/* <Link href="/pokemons/0">Pokemons</Link>{' '} */}
-        {/* <Link href="/ssr">SSR</Link>{' '} */}
-      </div>
+        <br />
+        <div style={{marginTop: 20}}></div>
+        <pre><Link  href="/login">LOGIN</Link></pre>
+      </div> */}
 
       
 
