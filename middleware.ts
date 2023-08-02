@@ -93,6 +93,7 @@ export async function middleware(req: NextRequest) {
 
 export const config = {
   matcher: ["/hydrate", "/home",
+  "/home/transactions",
    "/about", 
    "/login"],
 };
