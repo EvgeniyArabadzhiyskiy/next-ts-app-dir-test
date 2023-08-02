@@ -18,11 +18,8 @@ export default async function Layout({
 }: {
   children: React.ReactNode;
 }) {
-  // const cookieStore = cookies();
-  // const authToken = cookieStore.get("authToken")?.value;
-
-  const session = await getServerSession(authOptions);
-  const authToken = session?.user.token;
+  const cookieStore = cookies();
+  const authToken = cookieStore.get("authToken")?.value;
 
   // === Авторизация Через функцию getUser напрямую ===
   const currenUser = await getUser(authToken);

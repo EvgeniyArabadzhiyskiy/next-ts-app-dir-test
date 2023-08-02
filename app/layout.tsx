@@ -13,6 +13,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import AuthServerProvider from "@/components/AuthServerProvider/AuthServerProvider";
 import Link from "next/link";
+import Providers from "@/components/Providers/Providers";
 
 export const metadata: Metadata = {
   title: "Next.js",
@@ -112,6 +113,7 @@ async function RootLayout({ children }: { children: React.ReactNode }) {
         <QueryProvider>
           <GlobalStateProvider>
             {/* <AuthServerProvider> */}
+            <Providers>
               <StyledComponentsRegistry>
                 {/* <NextAuthProvider> */}
                 {/* <AuthMenu /> */}
@@ -119,6 +121,7 @@ async function RootLayout({ children }: { children: React.ReactNode }) {
                 {/* </NextAuthProvider> */}
                 {/* </ProtectedRoutes> */}
               </StyledComponentsRegistry>
+              </Providers>
             {/* </AuthServerProvider> */}
           </GlobalStateProvider>
         </QueryProvider>

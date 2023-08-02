@@ -9,11 +9,12 @@ import { parseCookies } from "nookies";
 const TransactionList = ({ authToken }: { authToken?: any }) => {
   // console.log("TransactionList  authToken:", authToken);
   const {authToken: token} = parseCookies()
+  // console.log("TransactionList  token:", token);
   const queryClient = useQueryClient();
   
   const [pageNum, setPageNum] = useState(1);
   const [trans, setTrans] = useState(authToken);
-
+  
   const { data, isFetching } = useQuery({
     queryKey: ["Transactions", pageNum],
     queryFn: () => getAllTransactions(token, pageNum),
@@ -25,6 +26,7 @@ const TransactionList = ({ authToken }: { authToken?: any }) => {
     //   setTrans((prev: any) => [...prev, ...data.transactions])
     // }
   });
+  // console.log("TransactionList  data:", data);
 
 //   const queryUserData = queryClient.getQueriesData<any>(["Transactions"]);
 //   console.log("Header  queryUserData:", queryUserData);
