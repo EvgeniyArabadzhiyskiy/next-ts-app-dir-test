@@ -97,7 +97,7 @@ async function RootLayout({ children }: { children: React.ReactNode }) {
         <Link href="/home">HOME</Link>{" "}
         <br />
         <div style={{marginTop: 20}}></div>
-        <Link  href="/about">About</Link>{" "} 
+        <Link  href="/home/transactions">Transactions</Link>{" "} 
         <br />
         <div style={{marginTop: 20}}></div>
         <Link href="/hydrate">HYDRATE</Link>{" "}

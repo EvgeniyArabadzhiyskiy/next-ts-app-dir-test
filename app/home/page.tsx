@@ -27,21 +27,21 @@ interface UserData {
   balance: number;
 }
 
-export default async function HomePage() {
+export default  function HomePage() {
   // const { data: pokemons, isLoading } = useGetPokemonListQuery(null);
   // console.log("HomePage  pokemons:", pokemons);
 
-  const cookieStore = cookies();
-  const authToken = cookieStore.get("authToken")?.value;
+  // const cookieStore = cookies();
+  // const authToken = cookieStore.get("authToken")?.value;
 
   // === Авторизация Через функцию getUser напрямую ===
-  const currenUser = await getUser(authToken);
+  // const currenUser = await getUser(authToken);
 
-  const queryClient = getQueryClient();
-  await queryClient.prefetchQuery(["Transactions", 1], () =>
-    getAllTransactions(authToken, 1)
-  );
-  const dehydratedState = dehydrate(queryClient);
+  // const queryClient = getQueryClient();
+  // await queryClient.prefetchQuery(["Transactions", 1], () =>
+  //   getAllTransactions(authToken, 1)
+  // );
+  // const dehydratedState = dehydrate(queryClient);
 
   // const transData = await getPokemonInfo();
   // console.log("HomePage  transData:>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", transData[0]);
@@ -50,7 +50,7 @@ export default async function HomePage() {
   // console.log("HomePage  todoData:=============================", todoData);
 
   return (
-    <Hydrate state={dehydratedState}>
+    // <Hydrate state={dehydratedState}>
       <>
         {/* <Header currentUser={currenUser} /> */}
         <div className={stl.container}>
@@ -58,10 +58,10 @@ export default async function HomePage() {
           <Link href="/">HOME</Link>
         </div>
 
-        <TransactionList authToken={authToken} />
+        {/* <TransactionList authToken={authToken} /> */}
         {/* <TransactionList authToken={transData.transactions} /> */}
       </>
-       </Hydrate>
+      //  </Hydrate>
   );
 }
 
